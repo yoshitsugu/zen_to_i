@@ -1,5 +1,9 @@
-require "zen_to_i/version"
+require 'zen_to_i/requirements'
 
-module ZenToI
-  # Your code goes here...
+class String
+  include Zen2Num
+  def zen_to_i
+    result = kanji2num(self)
+    zen2han(result)
+  end
 end

@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = ZenToI::VERSION
   spec.authors       = ["yoshitsugu"]
   spec.email         = ["zeroinon1206bass@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{全角文字に含まれる数字を数値に変換}
+  spec.summary       = %q{Japanese zenkaku to number}
   spec.homepage      = ""
   spec.license       = "MIT"
 
