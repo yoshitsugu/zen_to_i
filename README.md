@@ -15,6 +15,8 @@ Or install it yourself as:
     $ gem install zen_to_i
 
 ## Usage
+兆までの漢数字を半角数字に変換します。
+漢数字が続いていたらそれぞれ変換します。
 
 ```ruby
   "hoge".zen_to_i
@@ -25,6 +27,8 @@ Or install it yourself as:
 
   "百三".zen_to_i
   #=> "103"
+  "三兆五十二万四十八".zen_to_i
+  #=> "3000000520048"
 ```
 
 ## Contributing

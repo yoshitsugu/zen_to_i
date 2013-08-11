@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = ZenToI::VERSION
   spec.authors       = ["yoshitsugu"]
   spec.email         = ["zeroinon1206bass@gmail.com"]
-  spec.description   = %q{全角文字に含まれる数字を数値に変換}
+  spec.description   = %q{全角文字に含まれる数字を半角の数値に変換。兆まで対応}
   spec.summary       = %q{Japanese zenkaku to number}
   spec.homepage      = ""
   spec.license       = "MIT"
