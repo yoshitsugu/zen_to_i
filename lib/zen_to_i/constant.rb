@@ -1,3 +1,4 @@
+# encoding: utf-8
 class String
   module Zen2Num
     KANNUM = { '〇' => 0, '' => 1,'一' => 1, '二' => 2,'三' => 3, '四' => 4,
