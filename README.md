@@ -2,6 +2,8 @@
 兆までの漢数字を半角数字に変換します。
 漢数字が続いていたらそれぞれ変換します。
 
+[![Build Status](https://travis-ci.org/yoshitsugu/zen_to_i.svg)](https://travis-ci.org/yoshitsugu/zen_to_i)
+
 ## Installation
 
 Add this line to your application's Gemfile:
