@@ -18,6 +18,10 @@ describe ZenToI do
     it "兆の位まで半角数字に変換する" do
       expect("三兆五十二万四十八".zen_to_i).to eq "3000000520048"
     end
+
+    it "大字でも変換可能" do
+      expect("肆佰参拾捌".zen_to_i).to eq "438"
+    end
       
   end
 end
