@@ -1,8 +1,9 @@
-# coding: utf-8
-require File.dirname(__FILE__)+"/../spec_helper"
+# frozen_string_literal: true
+
+require "zen_to_i"
 
 describe ZenToI do
-  describe "String#zen_to_i" do 
+  describe "String#zen_to_i" do
     it "数字以外の文字の場合はそのまま返す" do
       expect("hoge".zen_to_i).to eq "hoge"
     end
@@ -22,6 +23,5 @@ describe ZenToI do
     it "大字でも変換可能" do
       expect("肆佰参拾捌".zen_to_i).to eq "438"
     end
-      
   end
 end

@@ -1,0 +1,6 @@
+inherit_gem:
+  onkcop:
+    - "config/rubocop.yml"
+
+AllCops:
+  TargetRubyVersion: 2.4
