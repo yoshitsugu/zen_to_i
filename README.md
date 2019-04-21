@@ -68,7 +68,7 @@ using ZenToI::Refine
 ```
 
 Also, you can implicitly overwrite `to_i` method by `require "zen_to_i/string_ext"`.  
-Of course it is dangerous, Please be very careful.
+Of course it is very dangerous. Please be careful to use it.
 
 ```ruby
 require "zen_to_i/string_ext"
