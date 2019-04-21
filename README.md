@@ -6,21 +6,38 @@
 
 ## Installation
 
-Add this line to your application's Gemfile:
+install via rubygems
 
-    gem 'zen_to_i'
+    $ gem install zen_to_i
+
+Or, you can use bundler. Please add this line to your application's Gemfile:
+
+```ruby:Gemfile
+gem 'zen_to_i'
+```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install zen_to_i
-
 ## Usage
 
+## 1. You can use `zen_to_i` command from your shell
+
+    $ zen_to_i "一二三"
+    123
+
+    # or you can use with pipe
+    $ echo "一二三" | zen_to_i
+    123
+
+Please call `bundle exec zen_to_i` if you install this gem via bundler.
+
+### 2. In your Ruby script
+
 ```ruby
+require 'zen_to_i'
+
 "hoge".zen_to_i
 #=> "hoge"
 
@@ -33,6 +50,36 @@ Or install it yourself as:
 "三兆五十二万四十八".zen_to_i
 #=> "3000000520048"
 ```
+Note that `zen_to_i` returns String, not Integer.  
+  
+Or you can overwrite `to_i` method with Refinements.  
+This returns Integer same as default `to_i` method.
+
+```ruby
+require "zen_to_i/refine"
+
+using ZenToI::Refine
+
+"一二三".zen_to_i
+#=> "103"
+
+"一二三".to_i
+#=> 103
+```
+
+Also, you can implicitly overwrite `to_i` method by `require "zen_to_i/string_ext"`.  
+Of course it is very dangerous. Please be careful to use it.
+
+```ruby
+require "zen_to_i/string_ext"
+
+"一二三".zen_to_i
+#=> "103"
+
+"一二三".to_i
+#=> 103
+```
+
 
 ## Contributing
 

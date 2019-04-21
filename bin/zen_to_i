@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+Signal.trap("INT") { abort }
+
+require "zen_to_i"
+
+begin
+  if $stdin.tty?
+    if ARGV.length == 1
+      puts ARGV[0].zen_to_i
+    else
+      warn "Usage: zen_to_i (string)"
+      exit 1
+    end
+  else
+    $stdin.each_line do |l|
+      puts l.zen_to_i
+    end
+  end
+rescue => e
+  warn e.inspect
+  e.backtrace.each do |t|
+    warn "  #{t}"
+  end
+  exit 2
+end
