@@ -2,7 +2,7 @@
 兆までの漢数字を半角数字に変換します。
 漢数字が続いていたらそれぞれ変換します。
 
-[![Build Status](https://travis-ci.org/yoshitsugu/zen_to_i.svg)](https://travis-ci.org/yoshitsugu/zen_to_i)
+[![Actions Status](https://github.com/yoshitsugu/zen_to_i/workflows/test/badge.svg)](https://github.com/yoshitsugu/zen_to_i/actions)
 
 ## Installation
 

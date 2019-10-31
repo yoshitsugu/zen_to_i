@@ -1,0 +1,34 @@
+name: test
+
+on: [push]
+
+jobs:
+  build:
+    name: >-
+      Ruby: ${{ matrix.ruby }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby:
+          - '2.4.x'
+          - '2.5.x'
+          - '2.6.x'
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/cache@preview
+      with:
+        path: ~/.bundle
+        key: ${{ matrix.ruby }}-bundle-${{ hashFiles(format('{0}{1}', github.workspace, '/zen_to_i.gemspec')) }}
+        restore-keys: |
+          ${{ matrix.ruby }}-bundle-
+    - name: setup ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - name: bundle install
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3 --path ~/.bundle
+    - name: run rspec
+      run: |
+        bundle exec rspec
