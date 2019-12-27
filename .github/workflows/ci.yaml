@@ -17,19 +17,20 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: actions/cache@preview
+      id: cache
       with:
-        path: ~/.bundle
-        key: ${{ matrix.ruby }}-bundle-${{ hashFiles(format('{0}{1}', github.workspace, '/zen_to_i.gemspec')) }}
-        restore-keys: |
-          ${{ matrix.ruby }}-bundle-
+        path: ~/local/rubies
+        key: ruby-${{ matrix.ruby }}
     - name: setup ruby
-      uses: actions/setup-ruby@v1
+      uses: clupprich/ruby-build-action@master
+      id: ruby
       with:
         ruby-version: ${{ matrix.ruby }}
+        cache-available: ${{ steps.cache.outputs.cache-hit == 'true' }}
     - name: bundle install
       run: |
         gem install bundler
-        bundle install --jobs 4 --retry 3 --path ~/.bundle
+        bundle install --jobs 4 --retry 3
     - name: run rspec
       run: |
         bundle exec rspec
