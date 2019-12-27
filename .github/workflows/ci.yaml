@@ -13,6 +13,7 @@ jobs:
           - '2.4.x'
           - '2.5.x'
           - '2.6.x'
+          - '2.7.x'
     steps:
     - uses: actions/checkout@master
     - uses: actions/cache@preview
