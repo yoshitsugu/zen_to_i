@@ -15,8 +15,8 @@ jobs:
           - '2.6.5'
           - '2.7.0'
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/cache@preview
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v1
       id: cache
       with:
         path: ~/local/rubies
