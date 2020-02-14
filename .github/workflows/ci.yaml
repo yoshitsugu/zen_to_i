@@ -10,26 +10,24 @@ jobs:
     strategy:
       matrix:
         ruby:
-          - '2.4.9'
-          - '2.5.7'
-          - '2.6.5'
-          - '2.7.0'
+          - '2.4'
+          - '2.5'
+          - '2.6'
+          - '2.7'
     steps:
     - uses: actions/checkout@v2
     - uses: actions/cache@v1
-      id: cache
       with:
-        path: ~/local/rubies
-        key: ruby-${{ matrix.ruby }}
-    - name: setup ruby
-      uses: clupprich/ruby-build-action@master
-      id: ruby
+        path: vendor/bundle
+        key: bundle-use-ruby-${{ matrix.ruby }}-${{ hashFiles(format('{0}{1}', github.workspace, '/zen_to_i.gemspec')) }}
+        restore-keys: |
+          bundle-use-ruby-${{ matrix.ruby }}-
+    - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
-        cache-available: ${{ steps.cache.outputs.cache-hit == 'true' }}
     - name: bundle install
       run: |
-        gem install bundler
+        bundle config path vendor/bundle
         bundle install --jobs 4 --retry 3
     - name: run rspec
       run: |
