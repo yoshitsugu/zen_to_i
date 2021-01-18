@@ -70,12 +70,5 @@ module ZenToI
           end
         end
       end
-
-      def format_location(string)
-        location_map.each do |key, value|
-          string.gsub!(/#{key}/, value)
-        end
-        string
-      end
   end
 end
