@@ -61,10 +61,10 @@ require "zen_to_i/refine"
 using ZenToI::Refine
 
 "一二三".zen_to_i
-#=> "103"
+#=> "123"
 
 "一二三".to_i
-#=> 103
+#=> 123
 ```
 
 Also, you can implicitly overwrite `to_i` method by `require "zen_to_i/string_ext"`.  
@@ -74,10 +74,10 @@ Of course it is very dangerous. Please be careful to use it.
 require "zen_to_i/string_ext"
 
 "一二三".zen_to_i
-#=> "103"
+#=> "123"
 
 "一二三".to_i
-#=> 103
+#=> 123
 ```
 
 
