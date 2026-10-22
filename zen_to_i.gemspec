@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["zeroinon1206bass@gmail.com"]
   spec.description   = "全角文字に含まれる数字を半角の数値に変換。兆まで対応"
   spec.summary       = "Japanese zenkaku to number"
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/yoshitsugu/zen_to_i"
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 2.4.6"
 
