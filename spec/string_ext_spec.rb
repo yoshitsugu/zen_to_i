@@ -9,6 +9,13 @@ describe String do
     end
   end
 
+  describe "String#_to_i overwritten" do
+    it "_to_iは差し替え前のto_iと同じ結果を返す" do
+      expect("一二三"._to_i).to eq 0
+      expect("123"._to_i).to eq 123
+    end
+  end
+
   describe "複数回読み込んでも無限再帰にならない" do
     it "string_extを再度読み込んでもto_iが動作する" do
       load File.expand_path("../lib/zen_to_i/string_ext.rb", __dir__)
