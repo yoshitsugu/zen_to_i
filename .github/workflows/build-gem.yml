@@ -1,0 +1,54 @@
+name: Build and attest gem
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@b1da4809b005e0178fe08a1d57317bffc00b7b4c # v1
+        with:
+          ruby-version: '4.0'
+          bundler-cache: true
+
+      - name: Check release tag matches gem version
+        run: |
+          ruby -r ./lib/zen_to_i/version -e '
+            expected = "refs/tags/v#{ZenToI::VERSION}"
+            abort "Expected #{expected}, got #{ENV.fetch("GITHUB_REF")}" unless ENV.fetch("GITHUB_REF") == expected
+          '
+
+      - name: Run tests
+        run: bundle exec rspec
+
+      - name: Build gem
+        run: |
+          mkdir -p pkg
+          gem build zen_to_i.gemspec --output "pkg/zen_to_i-${GITHUB_REF_NAME#v}.gem"
+
+      - name: Attest gem provenance
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
+        with:
+          subject-path: pkg/*.gem
+
+      - name: Save gem
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: zen_to_i-${{ github.ref_name }}
+          path: pkg/*.gem
+          if-no-files-found: error
