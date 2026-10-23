@@ -45,7 +45,7 @@ RSpec.describe "ロード順" do
         using ZenToI::Refine
         print "一二三"._to_i
       RUBY
-      <<~RUBY,
+      <<~RUBY
         require "zen_to_i/refine"
         require "zen_to_i/string_ext"
         using ZenToI::Refine
@@ -53,7 +53,7 @@ RSpec.describe "ロード順" do
       RUBY
     ].map { |script| run_script(script) }
 
-    expect(outputs).to eq ["0", "0"]
+    expect(outputs).to eq %w[0 0]
   end
 
   it "先に定義された String#_to_i を上書きしない" do

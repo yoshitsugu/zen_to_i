@@ -3,6 +3,7 @@
 require_relative "../zen_to_i"
 require_relative "to_i"
 
+# 読み込んでも String#to_i は変わらない。`using ZenToI::Refine` した範囲だけで差し替えが有効になる。
 module ZenToI
   unless const_defined?(:Refine, false)
     module Refine
