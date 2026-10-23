@@ -23,5 +23,20 @@ describe ZenToI do
     it "大字でも変換可能" do
       expect("肆佰参拾捌".zen_to_i).to eq "438"
     end
+
+    it "単位単体はそのままの数量に変換する" do
+      expect("万".zen_to_i).to eq "10000"
+      expect("萬".zen_to_i).to eq "10000"
+      expect("億".zen_to_i).to eq "100000000"
+      expect("兆".zen_to_i).to eq "1000000000000"
+    end
+
+    it "位記号の重複や並びの不整合は例外にならず値を返す（値は保証されない）" do
+      expect("十十".zen_to_i).to eq "20"
+      expect("百百".zen_to_i).to eq "200"
+      expect("十百".zen_to_i).to eq "110"
+      expect("一億一億".zen_to_i).to eq "200000000"
+      expect("兆兆".zen_to_i).to eq "2000000000000"
+    end
   end
 end

@@ -13,8 +13,10 @@ module ZenToI
                      "" => 1, "萬" => 10**4 }.freeze
       ALL_KANSUUJI = KANNUM.keys + KANORDER.keys + KANORDER_F.keys
       MAX_LOOP = 100
-      KANORDER_F_KEYS_REGEX = /([^#{KANORDER_F.keys.join('')}]*)([#{KANORDER_F.keys.join('')}]?)/.freeze
-      KANORDER_KEYS_REGEX = /([^#{KANORDER.keys.join('')}]*)([#{KANORDER.keys.join('')}]?)/.freeze
+      KANORDER_F_KEYS_REGEX = /([^#{KANORDER_F.keys.join("")}]*)([#{KANORDER_F.keys.join("")}]?)/
+      KANORDER_KEYS_REGEX = /([^#{KANORDER.keys.join("")}]*)([#{KANORDER.keys.join("")}]?)/
+      ALL_KANSUUJI_REGEX = /([#{ALL_KANSUUJI.join("")}]+)/
+      KANNUM_PAIR_REGEX = /([#{KANNUM.keys.join("")}])([#{KANNUM.keys.join("")}])/
     end
   end
 

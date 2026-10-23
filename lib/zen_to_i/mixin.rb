@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./constant"
+require_relative "constant"
 
 module ZenToI
   module Mixin
@@ -26,7 +26,7 @@ module ZenToI
 
       # 漢数字のところだけ切り出す
       def split_kansuuji(string)
-        string.split(/([#{ALL_KANSUUJI.join('')}]+)/)
+        string.split(ALL_KANSUUJI_REGEX)
       end
 
       # 位を表す数ではない普通の漢数字が続いていたらわける
@@ -44,9 +44,8 @@ module ZenToI
 
       def split_kansuuji_detail_inner(array)
         ary = array.map do |a|
-          if /([#{ALL_KANSUUJI.join('')}]+)/.match?(a)
-            kannum = KANNUM.keys.join("")
-            a.gsub(/([#{kannum}])([#{kannum}])/, '\1,\2').split(",")
+          if ALL_KANSUUJI_REGEX.match?(a)
+            a.gsub(KANNUM_PAIR_REGEX, '\1,\2').split(",")
           else
             a
           end
@@ -58,16 +57,26 @@ module ZenToI
       # それぞれに対して漢数字→数字を実行している。
       def convert_kansuuji(array)
         array.map do |a|
-          if /([#{ALL_KANSUUJI.join('')}]+)/.match?(a)
-            a.scan(KANORDER_F_KEYS_REGEX).inject(0) do |ret, (unit, order_f)|
-              unit_i = unit.scan(KANORDER_KEYS_REGEX).inject(-1) do |tmp, (kanji, order)|
-                tmp + KANNUM[kanji].to_i * KANORDER[order].to_i
-              end
-              ret + unit_i * KANORDER_F[order_f].to_i
-            end
+          if ALL_KANSUUJI_REGEX.match?(a)
+            sum_kansuuji(a)
           else
             a
           end
+        end
+      end
+
+      def sum_kansuuji(str)
+        str.scan(KANORDER_F_KEYS_REGEX).inject(0) do |ret, (unit, order_f)|
+          ret + (unit_to_i(unit, order_f) * KANORDER_F[order_f].to_i)
+        end
+      end
+
+      # 大字だけの表記は 1 個分として数え、scan の末尾の空一致は桁を持たないので 0 とする。
+      def unit_to_i(unit, order_f)
+        return order_f.empty? ? 0 : 1 if unit.empty?
+
+        unit.scan(KANORDER_KEYS_REGEX).inject(-1) do |tmp, (kanji, order)|
+          tmp + (KANNUM[kanji].to_i * KANORDER[order].to_i)
         end
       end
   end
