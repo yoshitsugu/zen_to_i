@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "zen_to_i/version"
@@ -11,16 +13,11 @@ Gem::Specification.new do |spec|
   spec.summary       = "Japanese zenkaku to number"
   spec.homepage      = "https://github.com/yoshitsugu/zen_to_i"
   spec.license       = "MIT"
-  spec.required_ruby_version = ">= 2.4.6"
+  spec.required_ruby_version = ">= 3.4.0"
 
-  spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
-  spec.executables   = spec.files.grep(%r{^bin/}) {|f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.metadata = { "rubygems_mfa_required" => "true" }
+
+  spec.files = `git ls-files -z`.split("\x0").grep(%r{\A(?:lib/|bin/|LICENSE\.txt\z|README\.md\z)})
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-
-  spec.add_development_dependency "bundler"
-  spec.add_development_dependency "onkcop"
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
 end
