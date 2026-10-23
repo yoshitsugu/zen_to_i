@@ -1,6 +1,31 @@
-inherit_gem:
-  onkcop:
-    - "config/rubocop.yml"
-
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 3.4
+  NewCops: enable
+  SuggestExtensions: false
+
+# 文字列リテラルはダブルクォートで書く
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+# ドキュメントコメントは求めない
+Style/Documentation:
+  Enabled: false
+
+# private 配下のメソッドはインデントしてまとめる
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
+
+# join の引数を省略すると分割文字列($,)に依存するため、空文字の指定を許容する。
+# RuboCop 自身もこの cop を Safe: false としており、引数省略は等価ではない。
+Style/RedundantArgument:
+  Exclude:
+    - "lib/zen_to_i/constant.rb"
+    - "lib/zen_to_i/mixin.rb"
+
+# spec は1ファイルに複数ケースをまとめるため、ブロック長に制限を設けない
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*_spec.rb"
