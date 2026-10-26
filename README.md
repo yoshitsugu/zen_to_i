@@ -1,39 +1,38 @@
 # ZenToI
-兆までの漢数字を半角数字に変換します。
-漢数字が続いていたらそれぞれ変換します。
+兆までの漢数字を半角数字に変換します。文章中に含まれる漢数字も変換できます。
 
 [![Actions Status](https://github.com/yoshitsugu/zen_to_i/workflows/test/badge.svg)](https://github.com/yoshitsugu/zen_to_i/actions)
 
 ## Installation
 
-install via rubygems
+Install via RubyGems.
 
     $ gem install zen_to_i
 
-Or, you can use bundler. Please add this line to your application's Gemfile:
+Or, use Bundler. Add this line to your application's Gemfile:
 
-```ruby:Gemfile
-gem 'zen_to_i'
+```ruby
+gem "zen_to_i"
 ```
 
-And then execute:
+Then run:
 
     $ bundle
 
 ## Usage
 
-## 1. You can use `zen_to_i` command from your shell
+### 1. Use the `zen_to_i` command from your shell
 
     $ zen_to_i "一二三"
     123
 
-    # or you can use with pipe
+    # or use a pipe
     $ echo "一二三" | zen_to_i
     123
 
-Please call `bundle exec zen_to_i` if you install this gem via bundler.
+Please run `bundle exec zen_to_i` if you installed the gem via Bundler.
 
-### 2. In your Ruby script
+### 2. Use it in your Ruby script
 
 ```ruby
 require 'zen_to_i'
@@ -50,10 +49,9 @@ require 'zen_to_i'
 "三兆五十二万四十八".zen_to_i
 #=> "3000000520048"
 ```
-Note that `zen_to_i` returns String, not Integer.  
-  
-Or you can overwrite `to_i` method with Refinements.  
-This returns Integer same as default `to_i` method.
+Note that `zen_to_i` returns a String, not an Integer.
+
+You can also override `to_i` with a refinement. The override is active only in the lexical scope where `using ZenToI::Refine` appears, and returns an Integer like the built-in `to_i` method.
 
 ```ruby
 require "zen_to_i/refine"
@@ -67,8 +65,7 @@ using ZenToI::Refine
 #=> 123
 ```
 
-Also, you can implicitly overwrite `to_i` method by `require "zen_to_i/string_ext"`.  
-Of course it is very dangerous. Please be careful to use it.
+You can also replace `String#to_i` globally by requiring `zen_to_i/string_ext`. This affects all strings in the process; the original `to_i` implementation remains available as `String#_to_i`. Use this only when a global override is intended.
 
 ```ruby
 require "zen_to_i/string_ext"
@@ -83,8 +80,8 @@ require "zen_to_i/string_ext"
 
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b my-new-feature`).
+3. Commit your changes (`git commit -am 'Add some feature'`).
+4. Push the branch (`git push origin my-new-feature`).
+5. Create a pull request.
