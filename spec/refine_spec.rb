@@ -11,6 +11,14 @@ describe ZenToI::Refine do
     end
   end
 
+  describe "基数を指定したto_i" do
+    it "変換後の文字列に基数を適用する" do
+      expect("10".to_i(2)).to eq 2
+      expect("ff".to_i(16)).to eq 255
+      expect("一〇".to_i(2)).to eq 2
+    end
+  end
+
   describe "String#_to_i refined" do
     it "_to_iは差し替え前のto_iと同じ結果を返す" do
       expect("一二三"._to_i).to eq 0

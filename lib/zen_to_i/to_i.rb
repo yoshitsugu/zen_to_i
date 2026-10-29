@@ -9,8 +9,8 @@ module ZenToI
     # ネイティブ実装を捕捉し、どのロード順でも素の to_i を参照できるようにする。
     ORIGINAL_TO_I = String.instance_method(:to_i) unless const_defined?(:ORIGINAL_TO_I, false)
 
-    def to_i
-      ORIGINAL_TO_I.bind(zen_to_i).call
+    def to_i(*)
+      ORIGINAL_TO_I.bind(zen_to_i).call(*)
     end
 
     def _to_i(*)
