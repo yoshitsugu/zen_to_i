@@ -3,36 +3,36 @@
 
 [![Actions Status](https://github.com/yoshitsugu/zen_to_i/workflows/test/badge.svg)](https://github.com/yoshitsugu/zen_to_i/actions)
 
-## Installation
+## インストール
 
-Install via RubyGems.
+RubyGems からインストールします。
 
     $ gem install zen_to_i
 
-Or, use Bundler. Add this line to your application's Gemfile:
+または Bundler を使います。アプリケーションの Gemfile に次の行を追加してください。
 
 ```ruby
 gem "zen_to_i"
 ```
 
-Then run:
+その後、次を実行します。
 
     $ bundle
 
-## Usage
+## 使い方
 
-### 1. Use the `zen_to_i` command from your shell
+### 1. シェルから `zen_to_i` コマンドを使う
 
     $ zen_to_i "一二三"
     123
 
-    # or use a pipe
+    # パイプで渡すこともできます
     $ echo "一二三" | zen_to_i
     123
 
-Please run `bundle exec zen_to_i` if you installed the gem via Bundler.
+Bundler経由で gem をインストールした場合は `bundle exec zen_to_i` を実行してください。
 
-### 2. Use it in your Ruby script
+### 2. Ruby スクリプト内で使う
 
 ```ruby
 require 'zen_to_i'
@@ -49,9 +49,9 @@ require 'zen_to_i'
 "三兆五十二万四十八".zen_to_i
 #=> "3000000520048"
 ```
-Note that `zen_to_i` returns a String, not an Integer.
+`zen_to_i` は Integer ではなく String を返すことに注意してください。
 
-You can also override `to_i` with a refinement. The override is active only in the lexical scope where `using ZenToI::Refine` appears, and returns an Integer like the built-in `to_i` method.
+refinement で `to_i` を上書きすることもできます。上書きは `using ZenToI::Refine` が書かれた語彙スコープ内だけで有効で、組み込みの `to_i` メソッドと同様に Integer を返します。
 
 ```ruby
 require "zen_to_i/refine"
@@ -65,7 +65,7 @@ using ZenToI::Refine
 #=> 123
 ```
 
-You can also replace `String#to_i` globally by requiring `zen_to_i/string_ext`. This affects all strings in the process; the original `to_i` implementation remains available as `String#_to_i`. Use this only when a global override is intended.
+`zen_to_i/string_ext` を require すると `String#to_i` をプロセス全体で置き換えることもできます。これはプロセス内のすべての文字列に影響します。元の `to_i` の実装は `String#_to_i` として残ります。グローバルな上書きが意図している場合にのみ使ってください。
 
 ```ruby
 require "zen_to_i/string_ext"
