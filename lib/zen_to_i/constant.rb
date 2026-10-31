@@ -12,11 +12,20 @@ module ZenToI
       KANORDER_F = { "万" => 10**4, "億" => 10**8, "兆" => 10**12,
                      "" => 1, "萬" => 10**4 }.freeze
       ALL_KANSUUJI = KANNUM.keys + KANORDER.keys + KANORDER_F.keys
+      ASCII_DIGITS = (0..9).map(&:to_s)
       MAX_LOOP = 100
       KANORDER_F_KEYS_REGEX = /([^#{KANORDER_F.keys.join("")}]*)([#{KANORDER_F.keys.join("")}]?)/
       KANORDER_KEYS_REGEX = /([^#{KANORDER.keys.join("")}]*)([#{KANORDER.keys.join("")}]?)/
-      ALL_KANSUUJI_REGEX = /([#{ALL_KANSUUJI.join("")}]+)/
+      # 半角数字が漢数字ブロックに混ざる場合（例: 3万）も漢数字側として扱う
+      ALL_KANSUUJI_REGEX = /([#{ALL_KANSUUJI.join("")}#{ASCII_DIGITS.join("")}]+)/
+      # 半角数字だけのブロック（例: 007）は数値として評価せず素通しする
+      ASCII_DIGITS_ONLY_REGEX = /\A[0-9]+\z/
       KANNUM_PAIR_REGEX = /([#{KANNUM.keys.join("")}])([#{KANNUM.keys.join("")}])/
+      # 半角数字と漢数字の境界は位ではなく個別の数字なので分割する（例: 3四 -> 3,四）
+      ASCII_KANNUM_PAIR_REGEXES = [
+        /([0-9])([#{KANNUM.keys.join("")}])/,
+        /([#{KANNUM.keys.join("")}])([0-9])/
+      ].freeze
     end
   end
 
